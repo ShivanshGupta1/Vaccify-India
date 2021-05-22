@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>COVID-19 Cases Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+</head>
+
+<body>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+    
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="http://localhost:3000">
+              Home
+            </a>
+      
+            <a class="navbar-item" href="http://localhost:3000/findmyslots">
+                See Slots
+            </a>
+            <a class="navbar-item" href="http://localhost:3000/verify">
+                Verify My Account
+            </a>
+           
+           
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="http://localhost:3000/">
+                  <strong>Sign up</strong>
+                </a>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Kindly See Your Slots
+                </h1>
+            </div>
+        </div>
+    </section>
+    
+    <% if(data !== null){ %>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-50x50">
+                                  
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                        <span class="title"></span>
+                                        <br>
+                                        <img style="margin-left: 0px; margin-right: 100px;" src="https://www.fda.gov/files/covid19-1600x900.jpg" alt="">
+                                        <% if(place==null){ %>
+                                        <form action="/slots" method="post">
+                                    <label for="place">Place: </label>
+                                    <select id="place" name="place">
+                               
+
+                                        <% if(data.sessions.length>1){ %>
+                                            <% for(var i = 0; i < data.sessions.length; i++) { %>
+                                                <option value='<%= data.sessions[i].name %>'><%= data.sessions[i].name %></option>
+                                              <% } %>
+                                              <% }  else{ %>
+<h3 style="text-align: center;">No Vaccination Slots Available </h3>
+                                                <% } %> 
+                                            </select>
+                                            <input class="input" style="width: 250px;" name="pincode" type="text" placeholder="Pincode - 570082">
+                                            <input class="input" name="date" style="width: 250px;" type="text" placeholder="Date -DD-MM-YYYY">
+                                            <button type="submit">Submit</button>
+                                         <% } else{ %>
+                                       
+                                        
+                                          
+                                          <% for(var i = 0; i < data.sessions.length/2; i++) { %>
+                                            <% if(data.sessions[i].name==place){ %>
+                                               Place:  <h5 id="place"><%= place%></h5>
+                                               <br>
+                                                Address: <h5 id="address"><%= data.sessions[i].address%></h5>
+                                                <br>
+                                                From:  <h5 id="from"><%= data.sessions[i].from%></h5>
+                                                <br>
+                                                To:  <h5 id="to"><%= data.sessions[i].to%></h5>
+                                                <br>
+                                                Fee Type: <h5 id="fee"><%= data.sessions[i].fee_type%></h5>
+                                                <br>
+                                                Capacity: <h5 id="available"><%= data.sessions[i].available_capacity%></h5>
+                                                <br>
+                                                Date: <h5 id="date"><%= data.sessions[i].date%></h5>                                         
+                                                <% } %>
+                                          <% } %>
+                                          <% } %> 
+                                      
+                                </form>
+                                  
+
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <% }   else{ %>
+        <h3 style="text-align: center;">No Vaccination Slots Available </h3>
+                                                        <% } %> 
+    <footer class="footer">
+    </footer>
+</body>
+
+</html
